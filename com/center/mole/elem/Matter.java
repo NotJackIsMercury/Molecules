@@ -1,9 +1,8 @@
 package com.center.mole.elem;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 
-public class Matter {
+public class Matter implements Cloneable {
 	public Color color;
 	public double mass;
 	public double posX;
@@ -15,13 +14,20 @@ public class Matter {
 		color = Color.BLACK;
 	}
 
-	public void render(Graphics2D graphics) {
-		
+	public Matter clone() {
+		try {
+			return (Matter) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 
-	public void genVectors() {
-		double speed = 10 + 40 * Math.random();
-        double angle = 2 * Math.PI * Math.random();
+	public void genVectors(float arg0, float arg1) {
+		float max = Math.max(arg0, arg1);
+		float min = Math.min(arg0, arg1);
+
+		double speed = (max - min) * Math.random() + min;
+		double angle = 2 * Math.PI * Math.random();
         vecX = speed * Math.cos(angle);
         vecY = speed * Math.sin(angle);
 	}
